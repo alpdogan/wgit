@@ -8,7 +8,7 @@ describe('reports', () => {
   it('renders the switch table and keeps a failed fetch on a non-ok row', () => {
     const table = formatReport([
       {
-        repo: 'admin-panel-auth-service',
+        repo: 'example-service',
         before: 'master',
         after: 'dev',
         action: 'create-track',
@@ -17,7 +17,7 @@ describe('reports', () => {
       },
     ]);
     assert.match(table, /repo\s+\|\s+before\s+\|\s+after\s+\|\s+action\s+\|\s+result\s+\|\s+error/);
-    assert.match(table, /admin-panel-auth-service\s+\|\s+master\s+\|\s+dev\s+\|\s+create-track\s+\|\s+ok/);
+    assert.match(table, /example-service\s+\|\s+master\s+\|\s+dev\s+\|\s+create-track\s+\|\s+ok/);
 
     const merged = mergeFetchErrors(
       [

@@ -5,16 +5,16 @@ Fast multi-root Git sync. Switch, fetch, and pull across every repository in the
 WGit is a VS Code and Cursor extension. You type `wg sb` and every repo moves to the branch you picked. A repo that only has `origin/dev` gets a local `dev` that tracks it. A repo that cannot move is skipped, with a reason, and the rest of the batch still runs.
 
 ```
-repo                     | before | after  | action                       | result  | error
-already-on               | dev    | dev    | already-on                   | ok      |
-admin-panel-auth-service | master | dev    | create-track                 | ok      |
-no-dev                   | master | master | skip: missing-remote-branch | skipped |
-dirty-repo               | master | master | skip: dirty                  | skipped |
+repo            | before | after  | action                       | result  | error
+already-on      | dev    | dev    | already-on                   | ok      |
+example-service | master | dev    | create-track                 | ok      |
+no-dev          | master | master | skip: missing-remote-branch | skipped |
+dirty-repo      | master | master | skip: dirty                  | skipped |
 ```
 
 ## Why
 
-Multi-root workspaces drift. Most repos sit on `dev`. One of them, `admin-panel-auth-service`, is still on `master`. `origin/dev` exists. There is no local `dev`. “Switch all to dev” should create that tracking branch. It should not leave the repo on `master` and hide the reason in a toast.
+Multi-root workspaces drift. Most repos sit on `dev`. One of them is still on `master`. `origin/dev` exists. There is no local `dev`. “Switch all to dev” should create that tracking branch. It should not leave that repo on `master` and hide the reason in a toast.
 
 WGit plans the operation before it changes any branch, then prints one row per repository.
 

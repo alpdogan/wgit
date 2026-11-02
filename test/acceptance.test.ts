@@ -29,18 +29,18 @@ describe('acceptance: switch a multi-root workspace to dev', () => {
       const dirty = seedDirty(root);
       const repos: NamedRepo[] = [
         { path: alreadyOn, name: 'already-on' },
-        { path: authService, name: 'admin-panel-auth-service' },
+        { path: authService, name: 'example-service' },
         { path: missing, name: 'no-dev' },
         { path: dirty, name: 'dirty-repo' },
       ];
 
-      const beforeFetch = await loadRepoStatus(authService, 'admin-panel-auth-service', 'origin');
+      const beforeFetch = await loadRepoStatus(authService, 'example-service', 'origin');
       assert.equal(beforeFetch?.remoteBranches.includes('dev'), false);
       assert.equal(beforeFetch?.branch, 'master');
 
       const fetched = await fetchRepos(repos, 'origin', config.maxParallel);
       assert.equal(fetched.every((row) => row.result === 'ok'), true);
-      const afterFetch = await loadRepoStatus(authService, 'admin-panel-auth-service', 'origin');
+      const afterFetch = await loadRepoStatus(authService, 'example-service', 'origin');
       assert.equal(afterFetch?.remoteBranches.includes('dev'), true);
       assert.equal(afterFetch?.localBranches.includes('dev'), false);
 
@@ -67,7 +67,7 @@ describe('acceptance: switch a multi-root workspace to dev', () => {
         await switchRepos(repos, 'dev', config),
       );
       assertRow(first, 'already-on', { action: 'already-on', result: 'ok', after: 'dev' });
-      assertRow(first, 'admin-panel-auth-service', { action: 'create-track', result: 'ok', after: 'dev' });
+      assertRow(first, 'example-service', { action: 'create-track', result: 'ok', after: 'dev' });
       assertRow(first, 'no-dev', { action: 'skip: missing-remote-branch', result: 'skipped', after: 'master' });
       assertRow(first, 'dirty-repo', { action: 'skip: dirty', result: 'skipped', after: 'master' });
 
@@ -82,7 +82,7 @@ describe('acceptance: switch a multi-root workspace to dev', () => {
 
       const second = await switchRepos(repos, 'dev', config);
       assertRow(second, 'already-on', { action: 'already-on', result: 'ok', after: 'dev' });
-      assertRow(second, 'admin-panel-auth-service', { action: 'already-on', result: 'ok', after: 'dev' });
+      assertRow(second, 'example-service', { action: 'already-on', result: 'ok', after: 'dev' });
       assertRow(second, 'no-dev', { action: 'skip: missing-remote-branch', result: 'skipped', after: 'master' });
       assertRow(second, 'dirty-repo', { action: 'skip: dirty', result: 'skipped', after: 'master' });
       assert.equal(fs.readFileSync(path.join(dirty, 'readme.txt'), 'utf8'), 'local edit\n');
@@ -229,7 +229,7 @@ function seedRemoteOnlyDev(root: string): string {
   git(seed, ['checkout', '-b', 'dev']);
   commitFile(seed, 'b.txt', 'dev\n', 'dev');
   git(seed, ['push', '-u', 'origin', 'dev']);
-  const repo = cloneFrom(root, origin, 'admin-panel-auth-service');
+  const repo = cloneFrom(root, origin, 'example-service');
   if (currentBranch(repo) !== 'master') {
     git(repo, ['checkout', 'master']);
   }
