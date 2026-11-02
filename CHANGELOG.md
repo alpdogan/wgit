@@ -16,5 +16,6 @@ and this project follows [Semantic Versioning](https://semver.org/spec/v2.0.0.ht
 - Dirty working tree policy: `skip` (default), `stash`, or `fail`. One repository never aborts the batch.
 - Status bar item `WGit: N` and an output channel named `WGit`.
 - Commands `WG: Switch Branch (sb)`, `WG: Pull All (pa)`, `WG: Fetch All (fa)`, `WG: Status (st)`, and `WG: Refresh (rf)`.
+- GitHub Actions publishes `wgit-<version>.vsix` on the matching `v*` tag.
 
 [0.1.0]: https://github.com/alpdogan/wgit/releases/tag/v0.1.0

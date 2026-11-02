@@ -5,16 +5,16 @@ Fast multi-root Git sync. Switch, fetch, and pull across every repository in the
 WGit is a VS Code and Cursor extension. You type `wg sb` and every repo moves to the branch you picked. A repo that only has `origin/dev` gets a local `dev` that tracks it. A repo that cannot move is skipped, with a reason, and the rest of the batch still runs.
 
 ```
-repo                     | before | after  | action                       | result  | error
-already-on               | dev    | dev    | already-on                   | ok      |
-admin-panel-auth-service | master | dev    | create-track                 | ok      |
-no-dev                   | master | master | skip: missing-remote-branch | skipped |
-dirty-repo               | master | master | skip: dirty                  | skipped |
+repo            | before | after  | action                       | result  | error
+already-on      | dev    | dev    | already-on                   | ok      |
+example-service | master | dev    | create-track                 | ok      |
+no-dev          | master | master | skip: missing-remote-branch | skipped |
+dirty-repo      | master | master | skip: dirty                  | skipped |
 ```
 
 ## Why
 
-Multi-root workspaces drift. Most repos sit on `dev`. One of them, `admin-panel-auth-service`, is still on `master`. `origin/dev` exists. There is no local `dev`. “Switch all to dev” should create that tracking branch. It should not leave the repo on `master` and hide the reason in a toast.
+Multi-root workspaces drift. Most repos sit on `dev`. One of them is still on `master`. `origin/dev` exists. There is no local `dev`. “Switch all to dev” should create that tracking branch. It should not leave that repo on `master` and hide the reason in a toast.
 
 WGit plans the operation before it changes any branch, then prints one row per repository.
 
@@ -74,9 +74,21 @@ Dirty means `git status --porcelain` is not empty, including untracked files. A 
 
 WGit does not activate in an untrusted workspace, and it does not run in virtual workspaces. Git has to be on `PATH`. Fetch and pull use `GIT_TERMINAL_PROMPT=0`, so a missing credential fails that repository instead of hanging the batch on a prompt.
 
-## Install from VSIX
+## Install from GitHub
 
-WGit targets VS Code and Cursor (`engines.vscode` `^1.85.0`). The 0.1 package is installed from a VSIX. Registry publishing is documented below and is not required to try it.
+Download [`wgit-0.1.0.vsix`](https://github.com/alpdogan/wgit/releases/download/v0.1.0/wgit-0.1.0.vsix) from the [v0.1.0 release](https://github.com/alpdogan/wgit/releases/tag/v0.1.0). That file is attached when the `v0.1.0` tag is pushed. GitHub Actions runs the tests, builds the VSIX, and publishes the release.
+
+In Cursor or VS Code:
+
+1. Open the Command Palette.
+2. Run **Extensions: Install from VSIX...**.
+3. Choose the downloaded `wgit-0.1.0.vsix`.
+4. Reload the window when the editor asks.
+5. Open a multi-root workspace, then run **WG: Status (st)** or type `wg st`.
+
+Trust the workspace when asked. The status bar should show `WGit: N` for the repositories it found.
+
+To build the same file yourself:
 
 ```bash
 git clone https://github.com/alpdogan/wgit.git
@@ -85,17 +97,7 @@ npm install
 npm run package
 ```
 
-`npm run package` writes `wgit-0.1.0.vsix` in this directory.
-
-In Cursor or VS Code:
-
-1. Open the Command Palette.
-2. Run **Extensions: Install from VSIX...**.
-3. Choose `wgit-0.1.0.vsix`.
-4. Reload the window when the editor asks.
-5. Open a multi-root workspace, then run **WG: Status (st)** or type `wg st`.
-
-Trust the workspace when asked. The status bar should show `WGit: N` for the repositories it found.
+`npm run package` writes `wgit-0.1.0.vsix` in this directory. WGit targets VS Code and Cursor (`engines.vscode` `^1.85.0`).
 
 ### Open VSX, then Marketplace
 
