@@ -1,0 +1,126 @@
+{
+  "name": "wgit",
+  "displayName": "WGit",
+  "description": "Fast multi-root Git sync — switch, fetch, pull across every repo in the workspace",
+  "version": "0.1.0",
+  "publisher": "alpdogan",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/alpdogan/wgit.git"
+  },
+  "bugs": {
+    "url": "https://github.com/alpdogan/wgit/issues"
+  },
+  "homepage": "https://github.com/alpdogan/wgit#readme",
+  "qna": "https://github.com/alpdogan/wgit/issues",
+  "engines": {
+    "vscode": "^1.85.0"
+  },
+  "categories": [
+    "SCM"
+  ],
+  "keywords": [
+    "git",
+    "multi-root",
+    "workspace",
+    "branch",
+    "fetch",
+    "pull"
+  ],
+  "galleryBanner": {
+    "color": "#0e1116",
+    "theme": "dark"
+  },
+  "capabilities": {
+    "virtualWorkspaces": false,
+    "untrustedWorkspaces": {
+      "supported": false
+    }
+  },
+  "main": "./out/extension.js",
+  "activationEvents": [
+    "onStartupFinished"
+  ],
+  "contributes": {
+    "commands": [
+      {
+        "command": "wgit.switchBranch",
+        "title": "WG: Switch Branch (sb)"
+      },
+      {
+        "command": "wgit.pullAll",
+        "title": "WG: Pull All (pa)"
+      },
+      {
+        "command": "wgit.fetchAll",
+        "title": "WG: Fetch All (fa)"
+      },
+      {
+        "command": "wgit.showStatus",
+        "title": "WG: Status (st)"
+      },
+      {
+        "command": "wgit.refresh",
+        "title": "WG: Refresh (rf)"
+      }
+    ],
+    "configuration": {
+      "title": "WGit",
+      "properties": {
+        "wgit.maxParallel": {
+          "type": "number",
+          "default": 5,
+          "minimum": 1,
+          "maximum": 32,
+          "description": "Maximum number of repositories to operate on at once."
+        },
+        "wgit.fetchBeforeSwitch": {
+          "type": "boolean",
+          "default": true,
+          "description": "Fetch the default remote before planning a branch switch."
+        },
+        "wgit.pullAfterSwitch": {
+          "type": "boolean",
+          "default": true,
+          "description": "Run git pull --ff-only after a repository is on the target branch."
+        },
+        "wgit.dirtyPolicy": {
+          "type": "string",
+          "enum": [
+            "skip",
+            "stash",
+            "fail"
+          ],
+          "default": "skip",
+          "description": "What to do when a repository has uncommitted or untracked changes and the checkout would move."
+        },
+        "wgit.scanNestedRepos": {
+          "type": "boolean",
+          "default": true,
+          "description": "Scan workspace folders for nested Git repositories. A folder that is itself a repository is included, and only its immediate children are checked."
+        },
+        "wgit.defaultRemote": {
+          "type": "string",
+          "default": "origin",
+          "description": "Remote used for fetch and for creating a local branch that tracks a remote branch."
+        }
+      }
+    }
+  },
+  "scripts": {
+    "vscode:prepublish": "npm run compile",
+    "compile": "tsc -p tsconfig.json",
+    "watch": "tsc -p tsconfig.json --watch",
+    "test": "node --import tsx --test test/*.test.ts",
+    "typecheck": "tsc -p tsconfig.json --noEmit && tsc -p tsconfig.test.json --noEmit",
+    "package": "vsce package"
+  },
+  "devDependencies": {
+    "@types/node": "^22.10.2",
+    "@types/vscode": "^1.85.0",
+    "@vscode/vsce": "^3.6.0",
+    "tsx": "^4.19.2",
+    "typescript": "^5.7.2"
+  }
+}
