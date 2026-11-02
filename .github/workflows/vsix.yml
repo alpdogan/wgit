@@ -37,6 +37,7 @@ jobs:
     permissions:
       contents: write
     steps:
+      - uses: actions/checkout@v4
       - uses: actions/download-artifact@v4
         with:
           name: wgit-vsix
@@ -55,5 +56,6 @@ jobs:
           tag="$GITHUB_REF_NAME"
           version="${tag#v}"
           gh release create "$tag" "dist/wgit-${version}.vsix" \
+            --repo "$GITHUB_REPOSITORY" \
             --title "WGit ${tag}" \
             --notes "Install wgit-${version}.vsix in Cursor or VS Code: Command Palette, then Extensions: Install from VSIX. After reload, type \`wg st\`. The status bar shows \`WGit: N\`."
