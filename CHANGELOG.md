@@ -5,6 +5,13 @@ All notable changes to WGit are documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project follows [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [0.1.1] - 2026-11-02
+
+### Added
+
+- Extension icon, shown in the Extensions view after installing the VSIX.
+- README GIF of `wg sb`, `wg pa`, `wg fa`, and `wg st`.
+
 ## [0.1.0] - 2026-11-02
 
 ### Added
@@ -18,4 +25,5 @@ and this project follows [Semantic Versioning](https://semver.org/spec/v2.0.0.ht
 - Commands `WG: Switch Branch (sb)`, `WG: Pull All (pa)`, `WG: Fetch All (fa)`, `WG: Status (st)`, and `WG: Refresh (rf)`.
 - GitHub Actions publishes `wgit-<version>.vsix` on the matching `v*` tag.
 
+[0.1.1]: https://github.com/alpdogan/wgit/releases/tag/v0.1.1
 [0.1.0]: https://github.com/alpdogan/wgit/releases/tag/v0.1.0

@@ -30,6 +30,8 @@ Command Palette titles are exact, so fuzzy search can use the short code.
 | `wgit.showStatus` | `WG: Status (st)` | `wg st` |
 | `wgit.refresh` | `WG: Refresh (rf)` | `wg rf` |
 
+![Command Palette: wg sb, wg pa, wg fa, and wg st](images/wgit-commands.gif)
+
 The status bar shows `WGit: N`, where `N` is the number of repositories WGit can see. Click it to run Status. Logs and report tables go to the **WGit** output channel. Choose **Show Details** on the summary notification to open that channel.
 
 Push-all is not in this version.
@@ -76,13 +78,13 @@ WGit does not activate in an untrusted workspace, and it does not run in virtual
 
 ## Install from GitHub
 
-Download [`wgit-0.1.0.vsix`](https://github.com/alpdogan/wgit/releases/download/v0.1.0/wgit-0.1.0.vsix) from the [v0.1.0 release](https://github.com/alpdogan/wgit/releases/tag/v0.1.0). That file is attached when the `v0.1.0` tag is pushed. GitHub Actions runs the tests, builds the VSIX, and publishes the release.
+Download [`wgit-0.1.1.vsix`](https://github.com/alpdogan/wgit/releases/download/v0.1.1/wgit-0.1.1.vsix) from the [v0.1.1 release](https://github.com/alpdogan/wgit/releases/tag/v0.1.1). That file includes the extension icon. GitHub Actions builds it when the `v0.1.1` tag is pushed.
 
 In Cursor or VS Code:
 
 1. Open the Command Palette.
 2. Run **Extensions: Install from VSIX...**.
-3. Choose the downloaded `wgit-0.1.0.vsix`.
+3. Choose the downloaded `wgit-0.1.1.vsix`.
 4. Reload the window when the editor asks.
 5. Open a multi-root workspace, then run **WG: Status (st)** or type `wg st`.
 
@@ -97,7 +99,7 @@ npm install
 npm run package
 ```
 
-`npm run package` writes `wgit-0.1.0.vsix` in this directory. WGit targets VS Code and Cursor (`engines.vscode` `^1.85.0`).
+`npm run package` writes `wgit-0.1.1.vsix` in this directory. WGit targets VS Code and Cursor (`engines.vscode` `^1.85.0`).
 
 ### Open VSX, then Marketplace
 
@@ -105,7 +107,7 @@ Publishing is manual. Create an [Open VSX](https://open-vsx.org/) access token a
 
 ```bash
 npx @vscode/vsce package
-npx ovsx publish wgit-0.1.0.vsix
+npx ovsx publish wgit-0.1.1.vsix
 ```
 
 Visual Studio Marketplace is optional after Open VSX. Use a Marketplace personal access token with `vsce publish`. Do not commit tokens. The publisher id in `package.json` is `alpdogan`, so the extension id is `alpdogan.wgit`.

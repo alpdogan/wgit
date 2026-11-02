@@ -8,6 +8,8 @@ interface PackageJson {
   displayName: string;
   publisher: string;
   license: string;
+  version: string;
+  icon: string;
   main: string;
   engines: { vscode: string };
   contributes: {
@@ -30,6 +32,9 @@ describe('extension manifest', () => {
     assert.equal(manifest.displayName, 'WGit');
     assert.equal(manifest.publisher, 'alpdogan');
     assert.equal(manifest.license, 'MIT');
+    assert.equal(manifest.version, '0.1.1');
+    assert.equal(manifest.icon, 'images/icon.png');
+    assert.equal(fs.existsSync(path.join(process.cwd(), manifest.icon)), true);
     assert.equal(manifest.main, './out/extension.js');
     assert.equal(manifest.engines.vscode, '^1.85.0');
     assert.deepEqual(
