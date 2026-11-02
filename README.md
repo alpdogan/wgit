@@ -30,6 +30,8 @@ Command Palette titles are exact, so fuzzy search can use the short code.
 | `wgit.showStatus` | `WG: Status (st)` | `wg st` |
 | `wgit.refresh` | `WG: Refresh (rf)` | `wg rf` |
 
+![Command Palette: wg sb, wg pa, wg fa, and wg st](images/wgit-commands.gif)
+
 The status bar shows `WGit: N`, where `N` is the number of repositories WGit can see. Click it to run Status. Logs and report tables go to the **WGit** output channel. Choose **Show Details** on the summary notification to open that channel.
 
 Push-all is not in this version.
