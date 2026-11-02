@@ -74,9 +74,21 @@ Dirty means `git status --porcelain` is not empty, including untracked files. A 
 
 WGit does not activate in an untrusted workspace, and it does not run in virtual workspaces. Git has to be on `PATH`. Fetch and pull use `GIT_TERMINAL_PROMPT=0`, so a missing credential fails that repository instead of hanging the batch on a prompt.
 
-## Install from VSIX
+## Install from GitHub
 
-WGit targets VS Code and Cursor (`engines.vscode` `^1.85.0`). The 0.1 package is installed from a VSIX. Registry publishing is documented below and is not required to try it.
+Download [`wgit-0.1.0.vsix`](https://github.com/alpdogan/wgit/releases/download/v0.1.0/wgit-0.1.0.vsix) from the [v0.1.0 release](https://github.com/alpdogan/wgit/releases/tag/v0.1.0). That file is attached when the `v0.1.0` tag is pushed. GitHub Actions runs the tests, builds the VSIX, and publishes the release.
+
+In Cursor or VS Code:
+
+1. Open the Command Palette.
+2. Run **Extensions: Install from VSIX...**.
+3. Choose the downloaded `wgit-0.1.0.vsix`.
+4. Reload the window when the editor asks.
+5. Open a multi-root workspace, then run **WG: Status (st)** or type `wg st`.
+
+Trust the workspace when asked. The status bar should show `WGit: N` for the repositories it found.
+
+To build the same file yourself:
 
 ```bash
 git clone https://github.com/alpdogan/wgit.git
@@ -85,17 +97,7 @@ npm install
 npm run package
 ```
 
-`npm run package` writes `wgit-0.1.0.vsix` in this directory.
-
-In Cursor or VS Code:
-
-1. Open the Command Palette.
-2. Run **Extensions: Install from VSIX...**.
-3. Choose `wgit-0.1.0.vsix`.
-4. Reload the window when the editor asks.
-5. Open a multi-root workspace, then run **WG: Status (st)** or type `wg st`.
-
-Trust the workspace when asked. The status bar should show `WGit: N` for the repositories it found.
+`npm run package` writes `wgit-0.1.0.vsix` in this directory. WGit targets VS Code and Cursor (`engines.vscode` `^1.85.0`).
 
 ### Open VSX, then Marketplace
 
